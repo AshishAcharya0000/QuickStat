@@ -29,7 +29,7 @@ class ShowcaseApp(App):
         self.screens = {}
         self.available_screens = [
             'FileChoosers',
-            'Buttons', 'ToggleButton', 'Sliders', 'ProgressBar',
+            'Buttons', 'ToggleButton', 'Sliders', 
             'Switches', 'CheckBoxes', 'TextInputs', 'Accordions', 
             'Carousel', 'Bubbles', 'DropDown', 
             'Spinner', 'Scatter', 'Splitter', 'TabbedPanel + Layouts', 
