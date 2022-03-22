@@ -6,7 +6,6 @@ from kivy.lang import Builder
 from kivy.properties import NumericProperty, StringProperty, BooleanProperty,\
     ListProperty
 from kivy.clock import Clock
-from kivy.animation import Animation
 from kivy.uix.screenmanager import Screen
 
 
@@ -46,13 +45,6 @@ class ShowcaseApp(App):
             '{}.kv'.format(fn).lower()) for fn in self.available_screens]
         self.go_next_screen()
 
-    
-    def on_pause(self):
-        return True
-
-    def on_resume(self):
-        pass
-
     def on_current_title(self, instance, value):
         self.root.ids.spnr.text = value
 
@@ -62,7 +54,6 @@ class ShowcaseApp(App):
         sm = self.root.ids.sm
         sm.switch_to(screen, direction='right')
         self.current_title = screen.name
-        
 
     def go_next_screen(self):
         self.index = (self.index + 1) % len(self.available_screens)
@@ -70,12 +61,10 @@ class ShowcaseApp(App):
         sm = self.root.ids.sm
         sm.switch_to(screen, direction='left')
         self.current_title = screen.name
-        
 
     def go_screen(self, idx):
         self.index = idx
         self.root.ids.sm.switch_to(self.load_screen(idx), direction='left')
-        
 
     def go_hierarchy_previous(self):
         ahr = self.hierarchy
@@ -93,25 +82,22 @@ class ShowcaseApp(App):
         screen = Builder.load_file(self.available_screens[index])
         self.screens[index] = screen
         return screen
-  
+
     def showcase_floatlayout(self, layout):
-        print("test")
-        
-            
+        print("test") 
 
     def showcase_boxlayout(self, layout):
         print('test')
-        
 
     def showcase_gridlayout(self, layout):
         print('test')
-        
+
     def showcase_stacklayout(self, layout):
         print('test')
 
     def showcase_anchorlayout(self, layout):
         print('test')
-        
+
     def _update_clock(self, dt):
         self.time = time()
 
