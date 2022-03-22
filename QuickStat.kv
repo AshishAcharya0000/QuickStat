@@ -1,100 +1,57 @@
-#:kivy 1.8.0
-#:import KivyLexer kivy.extras.highlight.KivyLexer
-#:import Factory kivy.factory.Factory
+#:kivy 2.0
+#:import webbrowser webbrowser
+<ScreenManager>:
+	Startup:
+		name: 'startup'
+	Display:
+		name: 'display'
 
-<ActionSpinnerOptions@SpinnerOption>
-    background_color: .4, .4, .4, 1
+<Startup>:
+	BoxLayout:
+		cols: 1
+		orientation: "vertical"
+		size: root.width, root.height
+		spacing: 20
+		padding: 20
+		
+		Button:
+			text: "Select Dataset"
+			font_size: 32
+			background_normal: ''
+			background_color: (0,.6,0,1)
+			size_hint_y: None
+			height: 25
+			size: (50, 100)
+			on_release: 
+				root.file_chooser()
+				root.manager.current = 'display'
+				root.manager.transition.direction = 'left'
+		
+		Button:
+			text:'QuickStat Team. All Rights Reserved.'
+			font_size: 17
+			size_hint_y: None
+			height: 25
+			size: (50, 100)
+			background_normal: ''
+			background_color: (.7,.5,.5,1)
+			canvas.before:
+				Color:
+					rgba: self.background_color
+				Rectangle:
+					size: self.size
+					pos: self.pos
+			on_release: webbrowser.open('https://github.com/TheGerbilvonSteuben/QuickStat')
+			
 
-<ActionSpinner@Spinner+ActionItem>
-    canvas.before:
-        Color:
-            rgba: 0.128, 0.128, 0.128, 1
-        Rectangle:
-            size: self.size
-            pos: self.pos
-    border: 27, 20, 12, 12
-    background_normal: 'atlas://data/images/defaulttheme/action_group'
-    option_cls: Factory.ActionSpinnerOptions
-
-<ActionDropdown>:
-    on_size: self.width = '220dp'
-
-<ShowcaseScreen>:
-    ScrollView:
-        do_scroll_x: False
-        do_scroll_y: False if root.fullscreen else (content.height > root.height - dp(16))
-        AnchorLayout:
-            size_hint_y: None
-            height: root.height if root.fullscreen else max(root.height, content.height)
-            GridLayout:
-                id: content
-                cols: 1
-                spacing: '8dp'
-                padding: '8dp'
-                size_hint: (1, 1) if root.fullscreen else (.8, None)
-                height: self.height if root.fullscreen else self.minimum_height
-
-
-BoxLayout:
-    orientation: 'vertical'
-
-    canvas.before:
-        Color:
-            rgb: .6, .6, .6
-        Rectangle:
-            size: self.size
-            source: 'data/background.png'
-
-    ActionBar:
-
-        ActionView:
-            id: av
-            ActionPrevious:
-                with_previous: (False if sm.current_screen.name == 'button' else True) if sm.current_screen else False
-                title: 'Showcase' + ('' if not app.current_title else ' - {}'.format(app.current_title))
-                on_release: app.go_hierarchy_previous()
-
-            ActionSpinner:
-                id: spnr
-                important: True
-                text: 'Jump to Screen'
-                values: app.screen_names
-                on_text:
-                    if sm.current != args[1]:\
-                    idx = app.screen_names.index(args[1]);\
-                    app.go_screen(idx)
-            ActionToggleButton:
-                text: 'Toggle sourcecode'
-                icon: 'data/icons/bug.png'
-                on_release: app.toggle_source_code()
-            ActionButton:
-                text: 'Previous screen'
-                icon: 'data/icons/chevron-left.png'
-                on_release: app.go_previous_screen()
-
-            ActionButton:
-                text: 'Next screen'
-                icon: 'data/icons/chevron-right.png'
-                on_release: app.go_next_screen()
-                important: True
-
-    ScrollView:
-        id: sv
-        size_hint_y: None
-        height: 0
-
-        CodeInput:
-            id: sourcecode
-            lexer: KivyLexer()
-            text: app.sourcecode
-            readonly: True
-            size_hint_y: None
-            font_size: '12sp'
-            height: self.minimum_height
-
-    ScreenManager:
-        id: sm
-        on_current_screen:
-            spnr.text = args[1].name
-            idx = app.screen_names.index(args[1].name)
-            if idx > -1: app.hierarchy.append(idx)
+<Display>:
+	on_enter: root.create_df()
+	BoxLayout:
+		cols: 4
+		size: root.width, root.height
+		
+		Button:
+			text: "Go Back"
+			on_release:
+				root.manager.current = "startup"
+				root.manager.transition.direction = "right"
