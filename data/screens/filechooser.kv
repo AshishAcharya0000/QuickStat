@@ -16,6 +16,10 @@ ShowcaseScreen:
             text: 'List'
             group: 'filechooser'
             on_release: filechooser.view_mode = 'list'
+        
+        Button:
+            text: 'Load'
+            on_release: app.load(filechooser.path, filechooser.selection)
 
     FileChooser:
         id: filechooser

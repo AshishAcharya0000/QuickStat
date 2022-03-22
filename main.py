@@ -93,6 +93,9 @@ class ShowcaseApp(App):
     def showcase_anchorlayout(self, layout):
         print('test')
 
+    def load(self, path, filename):
+        print(path, filename)
+
 
 if __name__ == '__main__':
     ShowcaseApp().run()
