@@ -19,7 +19,6 @@ class ShowcaseScreen(Screen):
 class ShowcaseApp(App):
 
     index = NumericProperty(-1)
-    current_title = StringProperty()
     screen_names = ListProperty([])
     hierarchy = ListProperty([])
 
@@ -29,7 +28,7 @@ class ShowcaseApp(App):
         self.screens = {}
         self.available_screens = [
             'FileChooser',
-            'Buttons', 'ToggleButton', 'Sliders', 
+            'Buttons', 'ToggleButton', 'Sliders',
             'Switches', 'CheckBoxes', 'TextInputs', 'Accordions', 
             'Carousel', 'Bubbles', 'DropDown',
             'Spinner', 'Scatter', 'Splitter', 'TabbedPanel + Layouts', 
@@ -40,36 +39,24 @@ class ShowcaseApp(App):
             '{}.kv'.format(fn).lower()) for fn in self.available_screens]
         self.go_next_screen()
 
-    def on_current_title(self, instance, value):
-        self.root.ids.spnr.text = value
-
+    
     def go_previous_screen(self):
         self.index = (self.index - 1) % len(self.available_screens)
         screen = self.load_screen(self.index)
         sm = self.root.ids.sm
         sm.switch_to(screen, direction='right')
-        self.current_title = screen.name
-
+        
     def go_next_screen(self):
         self.index = (self.index + 1) % len(self.available_screens)
         screen = self.load_screen(self.index)
         sm = self.root.ids.sm
         sm.switch_to(screen, direction='left')
-        self.current_title = screen.name
 
     def go_screen(self, idx):
         self.index = idx
         self.root.ids.sm.switch_to(self.load_screen(idx), direction='left')
 
-    def go_hierarchy_previous(self):
-        ahr = self.hierarchy
-        if len(ahr) == 1:
-            return
-        if ahr:
-            ahr.pop()
-        if ahr:
-            idx = ahr.pop()
-            self.go_screen(idx)
+    
 
     def load_screen(self, index):
         if index in self.screens:

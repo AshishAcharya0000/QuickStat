@@ -51,8 +51,7 @@ BoxLayout:
             id: av
             ActionPrevious:
                 with_previous: (False if sm.current_screen.name == 'button' else True) if sm.current_screen else False
-                title: 'Showcase' + ('' if not app.current_title else ' - {}'.format(app.current_title))
-                on_release: app.go_hierarchy_previous()
+                
 
             ActionSpinner:
                 id: spnr
@@ -63,10 +62,7 @@ BoxLayout:
                     if sm.current != args[1]:\
                     idx = app.screen_names.index(args[1]);\
                     app.go_screen(idx)
-            ActionToggleButton:
-                text: 'Toggle sourcecode'
-                icon: 'data/icons/bug.png'
-                
+            
             ActionButton:
                 text: 'Previous screen'
                 icon: 'data/icons/chevron-left.png'
@@ -77,20 +73,6 @@ BoxLayout:
                 icon: 'data/icons/chevron-right.png'
                 on_release: app.go_next_screen()
                 important: True
-
-    ScrollView:
-        id: sv
-        size_hint_y: None
-        height: 0
-
-        CodeInput:
-            id: sourcecode
-            lexer: KivyLexer()
-            text: "Its a Joke Bro"
-            readonly: True
-            size_hint_y: None
-            font_size: '12sp'
-            height: self.minimum_height
 
     ScreenManager:
         id: sm
