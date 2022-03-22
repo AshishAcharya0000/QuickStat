@@ -11,6 +11,7 @@ from kivy.app import App
 from kivy.core.window import Window
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.tabbedpanel import TabbedPanel
 from plyer import filechooser
 import pandas as pd
 
@@ -43,19 +44,18 @@ class Display(Screen):
         """Function for creating a dataframe from given csv file."""
         global FILEPATH
         global DF
+        
         df = pd.read_csv(FILEPATH[0])
         print(df.head)
-
-        result = df.select_dtypes(include='number')
-        # print(result)
-
-        numeric_cols = result.columns.values
-        # print(numeric_cols)
-
-        for col_name in numeric_cols:
-            print(col_name, " Mean:", df[col_name].mean())
         print(df.describe())
 
+        mask = df.select_dtypes(include='number')
+        numeric_cols = mask.columns.values
+        #print(numeric_cols)
+
+        for column_headers in df.columns.values.tolist():
+            print(column_headers)
+        
 
 # Designate Our .kv design file
 kv_file = Builder.load_file('quickStatDesign.kv')
