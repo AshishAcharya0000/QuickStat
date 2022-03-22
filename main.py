@@ -27,11 +27,11 @@ class ShowcaseApp(App):
 
         self.screens = {}
         self.available_screens = [
-            'FileChooser',
+            'FileChooser', 'TabbedPanel',
             'Buttons', 'ToggleButton', 'Sliders',
             'Switches', 'CheckBoxes', 'TextInputs', 'Accordions', 
             'Carousel', 'Bubbles', 'DropDown',
-            'Spinner', 'Scatter', 'Splitter', 'TabbedPanel + Layouts', 
+            'Spinner', 'Scatter', 'Splitter',
             'RstDocument', 'Popups', 'ScreenManager']
         self.screen_names = self.available_screens
         curdir = dirname(__file__)
@@ -81,6 +81,7 @@ class ShowcaseApp(App):
         print('test')
 
     def load(self, path, filename):
+        # add screen changer to goto 2nd screen
         print(path, filename)
 
 
