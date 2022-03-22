@@ -25,13 +25,13 @@ class ShowcaseApp(App):
 
     def build(self):
         self.title = 'QuickStat'
-        
+
         self.screens = {}
         self.available_screens = [
-            'FileChoosers',
+            'FileChooser',
             'Buttons', 'ToggleButton', 'Sliders', 
             'Switches', 'CheckBoxes', 'TextInputs', 'Accordions', 
-            'Carousel', 'Bubbles', 'DropDown', 
+            'Carousel', 'Bubbles', 'DropDown',
             'Spinner', 'Scatter', 'Splitter', 'TabbedPanel + Layouts', 
             'RstDocument', 'Popups', 'ScreenManager']
         self.screen_names = self.available_screens
@@ -92,8 +92,6 @@ class ShowcaseApp(App):
 
     def showcase_anchorlayout(self, layout):
         print('test')
-
-    
 
 
 if __name__ == '__main__':
