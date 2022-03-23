@@ -9,7 +9,7 @@ ShowcaseScreen:
 
         TabbedPanelItem:
             id: tab_fl
-            text: 'FloatLayout'
+            text: 'Data Table'
             on_release: app.showcase_floatlayout(fl)
             FloatLayout:
                 CFloatLayout:
@@ -48,6 +48,13 @@ ShowcaseScreen:
                         Button
                             text: 'test'
                         Button
+        TabbedPanelItem:
+            id: go_back
+            text: 'Go Back'
+            on_release: 
+                app.showcase_floatlayout(fl)
+                app.go_screen(0)
+            
 
 <CFloatLayout@FloatLayout+BackgroundColor>
 <CBoxLayout@BoxLayout+BackgroundColor>

@@ -5,7 +5,14 @@ from kivy.lang import Builder
 from kivy.properties import NumericProperty, StringProperty, BooleanProperty,\
     ListProperty
 from kivy.uix.screenmanager import Screen
+from kivymd.app import MDApp
+from kivymd.uix.datatables import MDDataTable
+from kivy.metrics import dp
+import pandas as pd
 
+# Global variables
+FILE_PATH = ''
+DATA_FRAME = pd.DataFrame()
 
 class ShowcaseScreen(Screen):
     fullscreen = BooleanProperty(False)
@@ -39,13 +46,12 @@ class ShowcaseApp(App):
             '{}.kv'.format(fn).lower()) for fn in self.available_screens]
         self.go_next_screen()
 
-    
     def go_previous_screen(self):
         self.index = (self.index - 1) % len(self.available_screens)
         screen = self.load_screen(self.index)
         sm = self.root.ids.sm
         sm.switch_to(screen, direction='right')
-        
+
     def go_next_screen(self):
         self.index = (self.index + 1) % len(self.available_screens)
         screen = self.load_screen(self.index)
@@ -55,8 +61,6 @@ class ShowcaseApp(App):
     def go_screen(self, idx):
         self.index = idx
         self.root.ids.sm.switch_to(self.load_screen(idx), direction='left')
-
-    
 
     def load_screen(self, index):
         if index in self.screens:
@@ -80,9 +84,17 @@ class ShowcaseApp(App):
     def showcase_anchorlayout(self, layout):
         print('test')
 
+    # TODO: Ensure file is a csv file
     def load(self, path, filename):
-        # add screen changer to goto 2nd screen
-        print(path, filename)
+        # TODO: add screen changer to goto 2nd screen
+        global FILE_PATH
+        FILE_PATH = filename
+
+    # gets row/column of df to put in kivymd table
+    def get_data_table(dataframe):
+        column_data = list(dataframe.columns)
+        row_data = dataframe.to_records(index=False)
+        return column_data, row_data
 
 
 if __name__ == '__main__':

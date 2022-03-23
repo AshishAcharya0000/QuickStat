@@ -45,38 +45,9 @@ BoxLayout:
             size: self.size
             source: 'data/background.png'
 
-    ActionBar:
-
-        ActionView:
-            id: av
-            ActionPrevious:
-                with_previous: (False if sm.current_screen.name == 'button' else True) if sm.current_screen else False
-                
-
-            ActionSpinner:
-                id: spnr
-                important: True
-                text: 'Jump to Screen'
-                values: app.screen_names
-                on_text:
-                    if sm.current != args[1]:\
-                    idx = app.screen_names.index(args[1]);\
-                    app.go_screen(idx)
-            
-            ActionButton:
-                text: 'Previous screen'
-                icon: 'data/icons/chevron-left.png'
-                on_release: app.go_previous_screen()
-
-            ActionButton:
-                text: 'Next screen'
-                icon: 'data/icons/chevron-right.png'
-                on_release: app.go_next_screen()
-                important: True
-
+    
     ScreenManager:
         id: sm
         on_current_screen:
-            spnr.text = args[1].name
             idx = app.screen_names.index(args[1].name)
             if idx > -1: app.hierarchy.append(idx)

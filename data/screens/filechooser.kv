@@ -19,7 +19,9 @@ ShowcaseScreen:
         
         Button:
             text: 'Load'
-            on_release: app.load(filechooser.path, filechooser.selection)
+            on_release: 
+                app.load(filechooser.path, filechooser.selection)
+                app.go_screen(1)
 
     FileChooser:
         id: filechooser
